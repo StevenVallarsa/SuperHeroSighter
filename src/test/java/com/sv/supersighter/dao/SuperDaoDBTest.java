@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SuperDaoDBTest {
     
     @Autowired
-    SuperDao superDao;
+    SuperDaoOLD superDao;
     
     public SuperDaoDBTest() {
     }
@@ -64,53 +64,53 @@ public class SuperDaoDBTest {
 
     // Find the number of supers who are members of 
     // org 1 - "DOOM" and make sure it's Superman at index 0;
-    @Test
-    public void countSupersByOrg() {
-        
-        List<Super> superList = superDao.returnSupersByOrg(1);
-        assertEquals(2, superList.size());
-       
-        superList = superDao.returnSupersByOrg(2);
-        assertEquals(5, superList.size());
-        
-        Super superAtID100 = superDao.returnSuperByID(100);
-        Assertions.assertEquals(superList.get(0).getName(), superAtID100.getName());
-    }
-    
-    
-    // Find the number of orgs who have a super  
-    // as a member
-    @Test
-    public void countOrgsBySuper() {
-        List<Org> orgList = superDao.returnOrgsBySuper(100);
-        assertEquals(1, orgList.size());
-                
-        orgList = superDao.returnOrgsBySuper(104);
-        assertEquals(3, orgList.size());
-    }
-    
-    @Test
-    public void addSightingAndCheckSuperLocationAndSighting() {
-        List<Sighting> listOfSightings = superDao.returnAllSightings();
-        assertEquals(0, listOfSightings.size());
-        
-        // create sighting of Superman at Queen & Young
-        Sighting newSighting = new Sighting();
-        newSighting.setLocationID(1000);
-        newSighting.setSuperID(100);
-        
-        LocalDateTime timeOfSighting = LocalDateTime.of(2020, 02, 20, 20, 20, 20);
-        System.out.println(timeOfSighting);
-        
-        Sighting createdSighting = superDao.recordSighting(newSighting, timeOfSighting);
-        
-        listOfSightings = superDao.returnAllSightings();
-        assertEquals(1, listOfSightings.size());
-        
-        Assertions.assertEquals(listOfSightings.get(0).getLocationID(), createdSighting.getLocationID());
-        
-        // delete created sighting for next time this is tested
-        Sighting deletedSighting = superDao.deleteSightingBySightingID(listOfSightings.get(0).getSightingID());
-    }
-    
+//    @Test
+//    public void countSupersByOrg() {
+//        
+//        List<Super> superList = superDao.returnSupersByOrg(1);
+//        assertEquals(2, superList.size());
+//       
+//        superList = superDao.returnSupersByOrg(2);
+//        assertEquals(5, superList.size());
+//        
+//        Super superAtID100 = superDao.returnSuperByID(100);
+//        Assertions.assertEquals(superList.get(0).getName(), superAtID100.getName());
+//    }
+//    
+//    
+//    // Find the number of orgs who have a super  
+//    // as a member
+//    @Test
+//    public void countOrgsBySuper() {
+//        List<Org> orgList = superDao.returnOrgsBySuper(100);
+//        assertEquals(1, orgList.size());
+//                
+//        orgList = superDao.returnOrgsBySuper(104);
+//        assertEquals(3, orgList.size());
+//    }
+//    
+//    @Test
+//    public void addSightingAndCheckSuperLocationAndSighting() {
+//        List<Sighting> listOfSightings = superDao.returnAllSightings();
+//        assertEquals(0, listOfSightings.size());
+//        
+//        // create sighting of Superman at Queen & Young
+//        Sighting newSighting = new Sighting();
+//        newSighting.setLocationID(1000);
+//        newSighting.setSuperID(100);
+//        
+//        LocalDateTime timeOfSighting = LocalDateTime.of(2020, 02, 20, 20, 20, 20);
+//        System.out.println(timeOfSighting);
+//        
+//        Sighting createdSighting = superDao.recordSighting(newSighting, timeOfSighting);
+//        
+//        listOfSightings = superDao.returnAllSightings();
+//        assertEquals(1, listOfSightings.size());
+//        
+//        Assertions.assertEquals(listOfSightings.get(0).getLocationID(), createdSighting.getLocationID());
+//        
+//        // delete created sighting for next time this is tested
+////        Sighting deletedSighting = superDao.deleteSightingBySightingID(listOfSightings.get(0).getSightingID());
+//    }
+//    
 }

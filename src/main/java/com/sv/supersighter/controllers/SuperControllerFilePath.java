@@ -5,7 +5,6 @@
 
 package com.sv.supersighter.controllers;
 
-import com.sv.supersighter.dao.SuperDao;
 import com.sv.supersighter.dto.Location;
 import com.sv.supersighter.dto.Org;
 import com.sv.supersighter.dto.Sighting;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.sv.supersighter.dao.SuperDaoOLD;
 
 /**
  *
@@ -35,11 +35,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/")
-public class Controller {
+public class SuperControllerFilePath {
     
-    private SuperDao superDao;
+    private SuperDaoOLD superDao;
     
-    public Controller(SuperDao superDao) {
+    public SuperControllerFilePath(SuperDaoOLD superDao) {
         this.superDao = superDao;
     }
     
@@ -81,6 +81,5 @@ public class Controller {
         LocalDate date = LocalDate.parse(dateAsString, DateTimeFormatter.ISO_LOCAL_DATE);
         return superDao.returnSightingsByADate(date);
     }
-    
 }
 

@@ -4,19 +4,19 @@
  */
 package com.sv.supersighter.dao;
 
-import com.sv.supersighter.dto.Super;
+import com.sv.supersighter.dto.Power;
 import java.util.List;
 
 /**
  *
  * @author StevePro
  */
-public interface SuperDao {
+public interface PowerDao {
     
-    Super insertSuper(Super superPerson);
-    Super deleteSuper(int superID);
-    void updateSuper(Super superPerson);
-    Super selectSuper(int superID);
-    List<Super> selectAllSupers();
+    Power insertPower(Power power);
+    Power deletePower(int powerID);
+    void updatePower(Power power);
+    Power selectPower(int powerID);
+    List<Power> selectAllPower();
 
 }

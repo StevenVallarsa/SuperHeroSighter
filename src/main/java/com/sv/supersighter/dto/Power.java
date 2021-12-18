@@ -6,6 +6,8 @@
 package com.sv.supersighter.dto;
 
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -16,6 +18,9 @@ import java.util.Objects;
  */
 public class Power {
     private int powerID;
+    
+    @NotBlank(message = "Name must not be blank")
+    @Size(max = 25, message="Name must be fewer than 25 characters")
     private String name;
 
     public int getPowerID() {
