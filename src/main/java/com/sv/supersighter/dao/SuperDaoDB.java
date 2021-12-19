@@ -52,32 +52,36 @@ public class SuperDaoDB implements SuperDao {
     @Transactional
     public Super deleteSuper(int superID) {
         
-        final String sqlDeleteFromSuper = "DELETE FROM super WHERE superID = ?;";
-        Super deletedSuper = selectSuper(superID);
-        jdbc.update(sqlDeleteFromSuper, superID);
-        
         final String sqlDeleteFromSuperOrg = "DELETE FROM super_org WHERE superID = ?;";
         jdbc.update(sqlDeleteFromSuperOrg, superID);
         
         final String sqlDeleteFromSuperPower = "DELETE FROM super_power WHERE superID = ?;";
         jdbc.update(sqlDeleteFromSuperPower, superID);
         
+        final String sqlDeleteFromSighting = "DELETE FROM sighting WHERE super = ?;";
+        jdbc.update(sqlDeleteFromSighting, superID);
+        
+        final String sqlDeleteFromSuper = "DELETE FROM super WHERE superID = ?;";
+        Super deletedSuper = selectSuper(superID);
+        jdbc.update(sqlDeleteFromSuper, superID);
+        
         return deletedSuper;
     }
 
     @Override
     public void updateSuper(Super superPerson) {
-        final String sql = "UPDATE power SET name = ?, description = ?, alignment=?, imageURL = ? WHERE superID = ?";
+        final String sql = "UPDATE super SET name = ?, description = ?, alignment=?, imageURL = ? WHERE superID = ?";
         jdbc.update(sql, 
                 superPerson.getName(), 
                 superPerson.getDescription(),
                 superPerson.getAlignment(),
-                superPerson.getImageURL());
+                superPerson.getImageURL(),
+                superPerson.getSuperID());
     }
 
     @Override
     public Super selectSuper(int superID) {
-        final String sql = "SELECT * FROM power WHERE superID = ?;";
+        final String sql = "SELECT * FROM super WHERE superID = ?;";
         return jdbc.queryForObject(sql, new SuperMapper(), superID);
     }
 

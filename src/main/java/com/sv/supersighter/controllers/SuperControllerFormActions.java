@@ -5,7 +5,9 @@
 
 package com.sv.supersighter.controllers;
 
+import com.sv.supersighter.dto.Location;
 import com.sv.supersighter.dto.Power;
+import com.sv.supersighter.dto.Super;
 import com.sv.supersighter.service.SuperServiceLayer;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,11 @@ public class SuperControllerFormActions {
     
     @Autowired
     SuperServiceLayer service;
+    
+    
+    /*
+     * POWERS MAPPING
+     */
     
     @GetMapping("powers")
     public String displayHomePage(Power power, Model model) {
@@ -90,6 +97,142 @@ public class SuperControllerFormActions {
         model.addAttribute("powers", powersList);
         return "powers";
     }
+    
+    /*
+     * SUPERS MAPPING
+     */
+    
+    @GetMapping("supers")
+    public String displaySupersPage(Super superPerson, Model model) {
+        List<Super> supers = service.listAllSupers();
+
+        model.addAttribute("supers", supers);
+        return "supers";
+    }
+
+    @PostMapping("addSuper")
+    public String addSuper(Super superPerson, HttpServletRequest request, Model model) {
+        
+        Super newSuper = new Super();
+        newSuper.setName(request.getParameter("name"));
+        newSuper.setDescription(request.getParameter("description"));
+        newSuper.setAlignment(request.getParameter("alignment"));
+        newSuper.setImageURL(request.getParameter("imageURL"));
+        
+        Super returnedSuper = service.addSuper(newSuper);
+        
+        if (returnedSuper == null) {
+            System.out.println("That super already exists");
+            return "redirect:/supers";
+        }
+        List<Super> supersList = service.listAllSupers();
+        model.addAttribute("supers", supersList);
+        
+        return "redirect:/supers";
+    }
+    
+    @GetMapping("deleteSuper")
+    public String deleteSuper(Integer superID) {
+        service.deleteSuper(superID);
+        return "redirect:/supers";
+    }
+    
+    @GetMapping("editSuper")
+    public String editSuperGet(Integer superID, Model model) {
+
+        Super superPerson = service.getOneSuper(superID);
+        model.addAttribute("supers", superPerson);
+        
+        return "editSuper";
+    }
+    
+    @PostMapping("editSuper")
+    public String editSuperPost(Super superPerson, HttpServletRequest request, Model model) {
+                
+        superPerson.setName(request.getParameter("name"));
+        superPerson.setDescription(request.getParameter("description"));
+        superPerson.setAlignment(request.getParameter("alignment"));
+        superPerson.setImageURL(request.getParameter("imageURL"));
+                
+        service.editSuper(superPerson);
+        
+        List<Super> supersList = service.listAllSupers();
+        model.addAttribute("supers", supersList);
+
+        return "redirect:/supers";
+    }
+    
+    
+    
+    /*
+     * LOCATION MAPPING
+     */
+    
+    @GetMapping("locations")
+    public String displayLocationsPage(Location location, Model model) {
+        List<Location> locations = service.listAllLocations();
+
+        model.addAttribute("locations", locations);
+        return "locations";
+    }
+
+    @PostMapping("addLocation")
+    public String addLocation(Location location, HttpServletRequest request, Model model) {
+        
+        Location newLocation = new Location();
+        newLocation.setName(request.getParameter("name"));
+        newLocation.setDescription(request.getParameter("description"));
+        newLocation.setAddress(request.getParameter("address"));
+        newLocation.setLongitude(Float.parseFloat(request.getParameter("longitude")));
+        newLocation.setLatitude(Float.parseFloat(request.getParameter("latitude")));
+        
+        Location returnedLocation = service.addLocation(newLocation);
+        
+        if (returnedLocation == null) {
+            System.out.println("That location already exists");
+            return "redirect:/locations";
+        }
+        List<Location> locations = service.listAllLocations();
+        model.addAttribute("locations", locations);
+        
+        return "redirect:/locations";
+    }
+    
+    @GetMapping("deleteLocation")
+    public String deleteLocation(Integer locationID) {
+        service.deleteLocation(locationID);
+        return "redirect:/locations";
+    }
+    
+    @GetMapping("editLocation")
+    public String editLocationGet(Integer locationID, Model model) {
+
+        Location location = service.getOneLocation(locationID);
+        model.addAttribute("location", location);
+        
+        return "editLocation";
+    }
+    
+    @PostMapping("editLocation")
+    public String editLocationPost(Location location, HttpServletRequest request, Model model) {
+        
+        location.setName(request.getParameter("name"));
+        location.setDescription(request.getParameter("description"));
+        location.setAddress(request.getParameter("address"));
+        location.setLongitude(Float.parseFloat(request.getParameter("longitude")));
+        location.setLatitude(Float.parseFloat(request.getParameter("latitude")));
+                
+        service.editLocation(location);
+        
+        List<Location> locations = service.listAllLocations();
+        model.addAttribute("locations", locations);
+
+        return "redirect:/locations";
+    }    
+
+    
+
+    
     
     
 }

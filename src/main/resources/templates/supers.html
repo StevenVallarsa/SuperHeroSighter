@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <title>Supers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row bg-primary py-5">
+                <div class="offset-1 col-lg-7 col-md-9">
+                    <h1 class="display-1 text-white">Supers</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-1 col-sm-12 col-md-8 col-lg-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Alignment</th>
+                                <th>Image Link</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="super : ${supers}">
+                                <td th:text="${super.name}" style="font-weight: bold;">name</td>
+                                <td th:text="${super.description}">description</td>
+                                <td th:switch="${super.alignment}">
+                                    <p th:case="11">Lawful Evil</p>
+                                    <p th:case="21">Neutral Evil</p>
+                                    <p th:case="31">Chaotic Evil</p>
+                                    <p th:case="12">Lawful Neutral</p>
+                                    <p th:case="22">Neutral Neutral</p>
+                                    <p th:case="32">Chaotic Neutral</p>
+                                    <p th:case="13">Lawful Good</p>
+                                    <p th:case="23">Neutral Good</p>
+                                    <p th:case="33">Chaotic Good</p>
+                                    <p th:case="*">Unknown Alignment</p>
+                                </td>
+                                <td th:text="${super.imageURL}">alignment</td>
+                                <td><a href="#" th:href="@{editSuper(superID=${super.superID})}">edit</a></td>
+                                <td><a href="#" th:href="@{deleteSuper(superID=${super.superID})}">delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <form action="addSuper" method="POST" class="mt-5 offset-sm-1">
+                        <h1 class="display-4">Add Super</h1>
+                        <div class="form-group">
+                            <label for="name">Name</label><br/>
+                            <input type="text" th:value="${super.name}" id="name" name="name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Description</label><br />
+                            <input type="text" th:value="${super.description}" id="desc" name="description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="alignment">Alignment</label><br />
+                            <input type="radio" id="ln" th:value="13" name="alignment" />
+                            <input type="radio" id="nn" th:value="23" name="alignment" />
+                            <input type="radio" id="lg" th:value="33" name="alignment" />
+                            <br />
+                            <input type="radio" id="ng" th:value="12" name="alignment" />
+                            <input type="radio" id="cg" th:value="22" name="alignment" />
+                            <input type="radio" id="cn" th:value="32" name="alignment" />
+                            <br />
+                            <input type="radio" id="le" th:value="11" name="alignment" />
+                            <input type="radio" id="ne" th:value="21" name="alignment" />
+                            <input type="radio" id="ce" th:value="31" name="alignment" />
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Image Link</label><br />
+                            <input type="text" th:value="${super.imageURL}" name="imageURL" />
+                        </div>
+                        <input type="hidden" name="powerID" th:value="${super.superID}"/>
+                        <br>
+                        <input class="btn btn-success btn-sm" type="submit" value="ADD SUPER" />
+                        <a class="btn btn-danger btn-sm" href="/supers">CANCEL</a>
+                    </form>                    
+                </div>
+            </div>
+                    
+        <div>
+
+        </div>
+    </body>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>

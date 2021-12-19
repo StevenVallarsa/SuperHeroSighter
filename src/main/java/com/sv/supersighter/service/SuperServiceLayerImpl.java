@@ -5,8 +5,10 @@
 
 package com.sv.supersighter.service;
 
+import com.sv.supersighter.dao.LocationDao;
 import com.sv.supersighter.dao.PowerDao;
 import com.sv.supersighter.dao.SuperDao;
+import com.sv.supersighter.dto.Location;
 import com.sv.supersighter.dto.Power;
 import com.sv.supersighter.dto.Super;
 import java.util.List;
@@ -26,11 +28,16 @@ public class SuperServiceLayerImpl implements SuperServiceLayer {
     
     final private PowerDao powerDao;
     final private SuperDao superDao;
+    final private LocationDao locationDao;
     
     @Autowired
-    public SuperServiceLayerImpl(PowerDao powerDao, SuperDao superDao) {
+    public SuperServiceLayerImpl(
+            PowerDao powerDao, 
+            SuperDao superDao, 
+            LocationDao locationDao) {
         this.powerDao = powerDao;
         this.superDao = superDao;
+        this.locationDao = locationDao;
     }
     
 
@@ -88,7 +95,7 @@ public class SuperServiceLayerImpl implements SuperServiceLayer {
     public Super addSuper(Super superPerson) {
         List<Super> supers = superDao.selectAllSupers();
         
-        if (supers.stream().anyMatch(s -> s.getName().equals(superPerson.getName().trim().toLowerCase()))) {
+        if (supers.stream().anyMatch(s -> s.getName().equals(superPerson.getName().trim()))) {
             System.out.println("This super already exists.");
             return null;
         }
@@ -117,6 +124,47 @@ public class SuperServiceLayerImpl implements SuperServiceLayer {
     @Override
     public List<Super> listAllSupers() {
         return superDao.selectAllSupers();
+    }
+
+    
+    
+    /*
+     *  LOCATION
+     */
+
+    @Override
+    public Location addLocation(Location location) {
+        List<Location> locations = locationDao.selectAllLocations();
+        
+        if (locations.stream().anyMatch(l -> l.getName().equals(location.getName()))) {
+            System.out.println("This Location already exists.");
+            return null;
+        }
+        
+        locationDao.insertLocation(location);
+        
+        return location;    
+    }
+
+    @Override
+    public Location editLocation(Location location) {
+        locationDao.updateLocation(location);
+        return location;
+    }
+
+    @Override
+    public Location deleteLocation(int locationID) {
+        return locationDao.deleteLocation(locationID);
+    }
+
+    @Override
+    public Location getOneLocation(int locationID) {
+        return locationDao.selectLocation(locationID);
+    }
+
+    @Override
+    public List<Location> listAllLocations() {
+        return locationDao.selectAllLocations();
     }
 
 

@@ -4,6 +4,7 @@
  */
 package com.sv.supersighter.service;
 
+import com.sv.supersighter.dto.Location;
 import com.sv.supersighter.dto.Power;
 import com.sv.supersighter.dto.Super;
 import java.util.List;
@@ -25,7 +26,12 @@ public interface SuperServiceLayer {
     Super editSuper(Super superPerson);
     Super deleteSuper(int superID);
     Super getOneSuper(int superID);
-    List<Super> listAllSupers();    
-    
+    List<Super> listAllSupers();
+
+    Location addLocation(Location location);
+    Location editLocation(Location location);
+    Location deleteLocation(int locationID);
+    Location getOneLocation(int locationID);
+    List<Location> listAllLocations();   
     
 }
