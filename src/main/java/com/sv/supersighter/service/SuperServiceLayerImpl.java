@@ -6,11 +6,15 @@
 package com.sv.supersighter.service;
 
 import com.sv.supersighter.dao.LocationDao;
+import com.sv.supersighter.dao.OrgDao;
 import com.sv.supersighter.dao.PowerDao;
 import com.sv.supersighter.dao.SuperDao;
+import com.sv.supersighter.dao.SightingDao;
 import com.sv.supersighter.dto.Location;
+import com.sv.supersighter.dto.Org;
 import com.sv.supersighter.dto.Power;
 import com.sv.supersighter.dto.Super;
+import com.sv.supersighter.dto.Sighting;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,15 +33,21 @@ public class SuperServiceLayerImpl implements SuperServiceLayer {
     final private PowerDao powerDao;
     final private SuperDao superDao;
     final private LocationDao locationDao;
+    final private OrgDao orgDao;
+    final private SightingDao sightingDao;
     
     @Autowired
     public SuperServiceLayerImpl(
             PowerDao powerDao, 
             SuperDao superDao, 
-            LocationDao locationDao) {
+            LocationDao locationDao,
+            OrgDao orgDao,
+            SightingDao sightingDao) {
         this.powerDao = powerDao;
         this.superDao = superDao;
         this.locationDao = locationDao;
+        this.orgDao = orgDao;
+        this.sightingDao = sightingDao;
     }
     
 
@@ -166,6 +176,86 @@ public class SuperServiceLayerImpl implements SuperServiceLayer {
     public List<Location> listAllLocations() {
         return locationDao.selectAllLocations();
     }
+
+    
+    
+    /*
+     *  ORG
+     */
+
+    @Override
+    public Org addOrg(Org org) {
+        List<Org> orgs = orgDao.selectAllOrgs();
+        
+        if (orgs.stream().anyMatch(o -> o.getName().equals(org.getName()))) {
+            System.out.println("This Org already exists.");
+            return null;
+        }
+        
+        orgDao.insertOrg(org);
+        
+        return org;    
+    }
+
+    @Override
+    public Org editOrg(Org org) {
+        orgDao.updateOrg(org);
+        return org;
+    }
+
+    @Override
+    public Org deleteOrg(int orgID) {
+        return orgDao.deleteOrg(orgID);
+    }
+
+    @Override
+    public Org getOneOrg(int orgID) {
+        return orgDao.selectOrg(orgID);
+    }
+
+    @Override
+    public List<Org> listAllOrgs() {
+        return orgDao.selectAllOrgs();
+    }
+
+    
+    
+    /*
+     *  SIGHTINGS
+     */
+
+    @Override
+    public Sighting addSighting(Sighting sighting) {
+        sightingDao.insertSighting(sighting);
+        return sighting;
+    }
+
+    @Override
+    public Sighting editSighting(Sighting sighting, int superID, int locationID) {
+        sightingDao.updateSighting(sighting, superID, locationID);
+        return sighting;
+    }
+
+    @Override
+    public Sighting deleteSighting(int sightingID) {
+        return sightingDao.deleteSighting(sightingID);
+    }
+
+    @Override
+    public Sighting getOneSighting(int sightingID) {
+        return sightingDao.selectSighting(sightingID);
+    }
+
+    @Override
+    public List<Sighting> listAllSightings() {
+        return sightingDao.selectAllSightings();
+    }
+
+    @Override
+    public List<String> listLastTenSightings() {
+        return sightingDao.selectAllSightingsDescLimit10();
+    }
+    
 
 
 }

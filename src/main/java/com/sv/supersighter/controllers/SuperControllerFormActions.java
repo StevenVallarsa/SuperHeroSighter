@@ -6,9 +6,13 @@
 package com.sv.supersighter.controllers;
 
 import com.sv.supersighter.dto.Location;
+import com.sv.supersighter.dto.Org;
 import com.sv.supersighter.dto.Power;
+import com.sv.supersighter.dto.Sighting;
 import com.sv.supersighter.dto.Super;
 import com.sv.supersighter.service.SuperServiceLayer;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -34,12 +38,28 @@ public class SuperControllerFormActions {
     SuperServiceLayer service;
     
     
+    @GetMapping("main")
+    public String displayHomePage(Model model) {
+        
+        List<Super> supers = service.listAllSupers();
+        List<Location> locations = service.listAllLocations();
+        List<String> sightings = service.listLastTenSightings();
+        
+        model.addAttribute("supers", supers);
+        model.addAttribute("locations", locations);
+        model.addAttribute("sightings", sightings);
+        
+        return "main"; 
+        
+    }
+    
+    
     /*
      * POWERS MAPPING
      */
     
     @GetMapping("powers")
-    public String displayHomePage(Power power, Model model) {
+    public String displayPowersPage(Power power, Model model) {
         List<Power> powers = service.listAllPowers();
 
         model.addAttribute("powers", powers);
@@ -232,7 +252,119 @@ public class SuperControllerFormActions {
 
     
 
+    /*
+     * ORG MAPPING
+     */
     
+    @GetMapping("orgs")
+    public String displayOrgsPage(Org org, Model model) {
+        List<Org> orgs = service.listAllOrgs();
+
+        model.addAttribute("orgs", orgs);
+        return "orgs";
+    }
+
+    @PostMapping("addOrg")
+    public String addOrg(Org org, HttpServletRequest request, Model model) {
+        
+        Org newOrg = new Org();
+        newOrg.setName(request.getParameter("name"));
+        newOrg.setDescription(request.getParameter("description"));
+        newOrg.setLocation(Integer.parseInt(request.getParameter("location")));
+        
+        Org returnedOrg = service.addOrg(newOrg);
+        
+        if (returnedOrg == null) {
+            System.out.println("That org already exists");
+            return "redirect:/orgs";
+        }
+        List<Org> orgs = service.listAllOrgs();
+        model.addAttribute("orgs", orgs);
+        
+        return "redirect:/orgs";
+    }
     
+    @GetMapping("deleteOrg")
+    public String deleteOrg(Integer orgID) {
+        service.deleteOrg(orgID);
+        return "redirect:/orgs";
+    }
+    
+    @GetMapping("editOrg")
+    public String editOrgGet(Integer orgID, Model model) {
+
+        Org org = service.getOneOrg(orgID);
+        model.addAttribute("org", org);
+        
+        return "editOrg";
+    }
+    
+    @PostMapping("editOrg")
+    public String editOrgPost(Org org, HttpServletRequest request, Model model) {
+        
+        org.setName(request.getParameter("name"));
+        org.setDescription(request.getParameter("description"));
+        org.setLocation(Integer.parseInt(request.getParameter("location")));
+                
+        service.editOrg(org);
+        
+        List<Org> orgs = service.listAllOrgs();
+        model.addAttribute("orgs", orgs);
+
+        return "redirect:/orgs";
+    } 
+
+    
+
+    /*
+     * SIGHTINGS MAPPING
+     */
+    
+    @GetMapping("sightings")
+    public String displaySightingsPage(Sighting sighting, Model model) {
+        List<Sighting> sightings = service.listAllSightings();
+
+        model.addAttribute("sightings", sightings);
+        return "sightings";
+    }
+
+    @PostMapping("addSighting")
+    public String addSighting(Sighting sighting, HttpServletRequest request, Model model) {
+        
+        Sighting newSighting = new Sighting();
+        newSighting.setSuperID(Integer.parseInt(request.getParameter("super")));
+        newSighting.setLocationID(Integer.parseInt(request.getParameter("location")));
+        newSighting.setTimeOfSighting(LocalDateTime.now());
+        
+        System.out.println(newSighting.getSuperID() + " ----- " + newSighting.getLocationID());
+        
+        service.addSighting(newSighting);
+        
+        
+        List<Sighting> sightings = service.listAllSightings();
+        model.addAttribute("sightings", sightings);
+        
+        return "redirect:/main";
+    }
+    
+    @GetMapping("deleteSighting")
+    public String deleteSighting(Integer sightingID) {
+        service.deleteSighting(sightingID);
+        return "redirect:/sightings";
+    }
+    
+//    @GetMapping("editSighting")
+//    public String editSightingGet(Integer sightingID, Model model) {
+//
+//        Sighting sighting = service.getOneSighting(sightingID);
+//        model.addAttribute("sighting", sighting);
+//        
+//        return "editOrg";
+//    }
+//    
+//    @PostMapping("editSighting")
+//    public String editSightingPost(Sighting sighting, HttpServletRequest request, Model model) {
+//     return null;
+//    }     
     
 }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <title>Supers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div style="margin: 0; padding: 0" class="container-fluid">
+            <nav  class="navbar navbar-expand-sm navbar-dark bg-primary sticky-top pl-5">
+              <a class="navbar-brand active" href="main">REPORT SIGHTING</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="supers">Supers</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="powers">Powers</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="orgs">Orgs</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="locations">Locations</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="sightings">Sightings</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <div class="row bg-primary pb-4">
+                <div class="offset-1 col-lg-7 col-md-9">
+                    <h1 class="display-1 text-white">Report Sighting</h1>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col offset-md-1 col-sm-4">
+                    <h2>It is your patriotic duty to report supers</h2>
+                    <p>Preserve and cherish that pale blue dot are creatures of the cosmos vanquish the impossible from which we spring muse about Apollonius of Perga? Network of wormholes as a patch of light the carbon in our apple pies globular star cluster radio telescope venture. Tingling of the spine citizens of distant epochs bits of moving fluff extraordinary claims require extraordinary evidence citizens of distant epochs something incredible is waiting to be known and billions upon billions upon billions upon billions upon billions upon billions upon billions.</p>
+                </div>
+                
+                <div class="col-sm-3 pt-2">
+                
+                    <div class="container-fluid mb-3">
+                        <form action="addSighting" method="POST">
+                        <div class="row mb-2">
+                            <div class="col-sm-8">
+                                <select id="supersList" name="super" class="form-control">
+                                    <option th:each="super : ${supers}"
+                                            th:value="${super.superID}"
+                                            th:text="${super.name}" />
+                                        Super
+                                </select>
+                            </div>
+                            <div class="col">
+                                <a style="font-size: 10px" role="button" type="button" class="btn btn-warning btn-block" href="supers">NEW<BR>SUPER</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <select id="supersList" name="location" class="form-control">
+                                <option th:each="location : ${locations}"
+                                        th:value="${location.locationID}"
+                                        th:text="${location.name}" />
+                                    Location
+                                </select>
+                            </div>
+                            <div class="col">
+                                <a style="font-size: 10px" role="button" type="button" class="btn btn-warning btn-block" href="locations">NEW<BR>LOCATION</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input class="btn btn-success btn-block mt-3" type="submit" value="ADD SIGHTING" />
+
+                                <!--<a role="button" type="submit" class="btn btn-success btn-block mt-3">ADD SIGHTING</a>-->
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    
+                </div>
+                            
+                            
+                <div class="col bg-light mt-1">
+                    <p class="display-4 p-2">Latest Super Sightings</p>
+                    <p th:each="sighting : ${sightings}">
+                        <span th:text="${sighting}">a</span>
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        
+    </body>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>

@@ -8,14 +8,14 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>Report Super Sightings Here</title>
+        <title>Locations</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div style="margin: 0; padding: 0" class="container-fluid">
             <nav  class="navbar navbar-expand-sm navbar-dark bg-primary sticky-top pl-5">
-              <a class="navbar-brand" href="main">REPORT SIGHTING</a>
+              <a class="navbar-brand active" href="main">REPORT SIGHTING</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -24,7 +24,7 @@
                   <li class="nav-item">
                     <a class="nav-link" href="supers">Supers</a>
                   </li>
-                  <li class="nav-item active">
+                  <li class="nav-item">
                     <a class="nav-link" href="powers">Powers</a>
                   </li>
                   <li class="nav-item">
@@ -33,50 +33,57 @@
                   <li class="nav-item">
                     <a class="nav-link" href="locations">Locations</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item active">
                     <a class="nav-link" href="sightings">Sightings</a>
                   </li>
                 </ul>
               </div>
-            </nav>
+            </nav> 
             <div class="row bg-primary pb-4">
                 <div class="offset-1 col-lg-7 col-md-9">
-                    <h1 class="display-1 text-white">Powers</h1>
+                    <h1 class="display-1 text-white">Sightings</h1>
                 </div>
             </div>
             <div class="row">
-                <div class="offset-1 col-sm-8 col-md-6 col-lg-5">
+                <div class="offset-1 col-sm-12 col-md-8 col-lg-6">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Super Power</th>
+                                <th>Super</th>
+                                <th>Location</th>
+                                <th>Time</th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="power: ${powers}">
-                                <td th:text="${power.name}">power</td>
-                                <td><a href="#" th:href="@{editPower(powerID=${power.powerID})}">edit</a></td>
-                                <td><a href="#" th:href="@{deletePower(powerID=${power.powerID})}">delete</a></td>
+                            <tr th:each="sighting : ${sightings}">
+                                <td th:text="${sighting.superID}" style="font-weight: bold;">super</td>
+                                <td th:text="${sighting.locationID}">location</td>
+                                <td th:text="${sighting.timeOfSighting}">time</td>
+                                <td><a th:href="@{editSighting(sightingID=${sighting.sightingID})}">edit</a></td>
+                                <td><a href="#" th:href="@{deleteSighting(sightingID=${sighting.sightingID})}">delete</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col">
-                    <form action="addPower" method="POST" class="mt-5 offset-sm-1">
-                        <h1 class="display-4">Add Power</h1>
+                    <form action="addSighting" method="POST" class="mt-5 offset-sm-1">
+                        <h1 class="display-4">Add Sighting</h1>
                         <div class="form-group">
-                            <label for="name">Name</label><br/>
-                            <input type="text" th:value="${power.name}" id="name" name="name" />
+                            <label for="super">Super ID</label><br/>
+                            <input type="text" th:value="${sighting.superID}" id="name" name="super" />
                         </div>
-                        <input type="hidden" name="powerID" th:value="${power.powerID}"/>
+                        <div class="form-group">
+                            <label for="location">Location ID</label><br />
+                            <input type="text" th:value="${sighting.locationID}" id="desc" name="location" />
+                        </div>
+                        <input type="hidden" name="sightingID" th:value="${sighting.sightingID}"/>
                         <br>
-                        <input class="btn btn-success btn-sm" type="submit" value="ADD POWER" />
-                        <a class="btn btn-danger btn-sm" href="/powers">CANCEL</a>
+                        <input class="btn btn-success btn-sm" type="submit" value="ADD SIGHTING" />
+                        <a class="btn btn-danger btn-sm" href="/sightings">CANCEL</a>
                     </form>                    
                 </div>
-                
             </div>
                     
         <div>

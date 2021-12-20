@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <title>Supers</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0; URL=main" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row bg-primary py-5">
+                <div class="offset-1 col-lg-7 col-md-9">
+                    <h1 class="display-1 text-white">Report Super Sightings</h1>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col offset-md-1 col-sm-4">
+                    <h2>It is your patriotic duty to report supers</h2>
+                    <p>Preserve and cherish that pale blue dot are creatures of the cosmos vanquish the impossible from which we spring muse about Apollonius of Perga? Network of wormholes as a patch of light the carbon in our apple pies globular star cluster radio telescope venture. Tingling of the spine citizens of distant epochs bits of moving fluff extraordinary claims require extraordinary evidence citizens of distant epochs something incredible is waiting to be known and billions upon billions upon billions upon billions upon billions upon billions upon billions.</p>
+                </div>
+                <div class="col-sm-3 pt-2">
+                    <select id="supersList" name="supersList" class="form-control">
+                        <option th:each="super : ${supers}"
+                                th:value="${super.superID}"
+                                th:text="${super.name}">
+                            Super
+                    </select>
+                    <br />
+                    <select id="supersList" name="supersList" class="form-control">
+                        <option th:each="location : ${locations}"
+                                th:value="${location.locationID}"
+                                th:text="${location.name}">
+                            Location
+                    </select>
+                </div>
+                <div class="col bg-light mt-1">
+                    <p class="display-4 p-2">Latest Super Sightings</p>
+                    <p th:each="sighting : ${sightings}">
+                        <span th:text="sighting">a</span>
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        
+    </body>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>

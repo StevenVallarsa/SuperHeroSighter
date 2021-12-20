@@ -43,11 +43,11 @@ public class SuperControllerFilePath {
         this.superDao = superDao;
     }
     
-    @GetMapping("/")
-    public String hello() {
-        return "Welcome to the party, pal.";
-    }
-    
+//    @GetMapping("/")
+//    public String hello() {
+//        return "Welcome to the party, pal.";
+//    }
+//    
     @PostMapping("/sighting")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Sighting> recordSighting(@RequestBody Sighting sighting) {

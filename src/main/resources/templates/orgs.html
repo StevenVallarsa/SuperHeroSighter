@@ -8,7 +8,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>Supers</title>
+        <title>Organizations</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -21,13 +21,13 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                  <li class="nav-item active">
+                  <li class="nav-item">
                     <a class="nav-link" href="supers">Supers</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="powers">Powers</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item active">
                     <a class="nav-link" href="orgs">Orgs</a>
                   </li>
                   <li class="nav-item">
@@ -38,87 +38,59 @@
                   </li>
                 </ul>
               </div>
-            </nav> 
+            </nav>            
             <div class="row bg-primary pb-4">
                 <div class="offset-1 col-lg-7 col-md-9">
-                    <h1 class="display-1 text-white">Supers</h1>
+                    <h1 class="display-1 text-white">Organizations</h1>
                 </div>
+                
             </div>
             <div class="row">
-                <div class="offset-1 col-sm-12 col-md-8 col-lg-6">
+                <div class="offset-1 col-sm-8 col-md-6 col-lg-5">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Alignment</th>
-                                <th>Image Link</th>
+                                <th>Location</th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="super : ${supers}">
-                                <td th:text="${super.name}" style="font-weight: bold;">name</td>
-                                <td th:text="${super.description}">description</td>
-                                <td th:switch="${super.alignment}">
-                                    <p th:case="11">Lawful Evil</p>
-                                    <p th:case="21">Neutral Evil</p>
-                                    <p th:case="31">Chaotic Evil</p>
-                                    <p th:case="12">Lawful Neutral</p>
-                                    <p th:case="22">Neutral Neutral</p>
-                                    <p th:case="32">Chaotic Neutral</p>
-                                    <p th:case="13">Lawful Good</p>
-                                    <p th:case="23">Neutral Good</p>
-                                    <p th:case="33">Chaotic Good</p>
-                                    <p th:case="*">Unknown Alignment</p>
-                                </td>
-                                <td th:text="${super.imageURL}">alignment</td>
-                                <td><a href="#" th:href="@{editSuper(superID=${super.superID})}">edit</a></td>
-                                <td><a href="#" th:href="@{deleteSuper(superID=${super.superID})}">delete</a></td>
+                            <tr th:each="org : ${orgs}">
+                                <td th:text="${org.name}">name</td>
+                                <td th:text="${org.description}">description</td>
+                                <td th:text="${org.location}">location</td>
+                                <td><a href="#" th:href="@{editOrg(powerID=${org.orgID})}">edit</a></td>
+                                <td><a href="#" th:href="@{deleteOrg(powerID=${org.orgID})}">delete</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col">
-                    <form action="addSuper" method="POST" class="mt-5 offset-sm-1">
-                        <h1 class="display-4">Add Super</h1>
+                    <form action="addOrg" method="POST" class="mt-5 offset-sm-1">
+                        <h1 class="display-4">Add Organization</h1>
                         <div class="form-group">
                             <label for="name">Name</label><br/>
-                            <input type="text" th:value="${super.name}" id="name" name="name" />
+                            <input type="text" th:value="${org.name}" id="name" name="name" />
                         </div>
                         <div class="form-group">
                             <label for="desc">Description</label><br />
-                            <input type="text" th:value="${super.description}" id="desc" name="description" />
+                            <input type="text" th:value="${org.description}" id="desc" name="description" />
                         </div>
                         <div class="form-group">
-                            <label for="alignment">Alignment</label><br />
-                            <input type="radio" id="ln" th:value="13" name="alignment" />
-                            <input type="radio" id="nn" th:value="23" name="alignment" />
-                            <input type="radio" id="lg" th:value="33" name="alignment" />
-                            <br />
-                            <input type="radio" id="ng" th:value="12" name="alignment" />
-                            <input type="radio" id="cg" th:value="22" name="alignment" />
-                            <input type="radio" id="cn" th:value="32" name="alignment" />
-                            <br />
-                            <input type="radio" id="le" th:value="11" name="alignment" />
-                            <input type="radio" id="ne" th:value="21" name="alignment" />
-                            <input type="radio" id="ce" th:value="31" name="alignment" />
+                            <label for="address">Location</label><br />
+                            <input type="text" th:value="${org.location}" id="desc" name="location" />
                         </div>
-                        <div class="form-group">
-                            <label for="desc">Image Link</label><br />
-                            <input type="text" th:value="${super.imageURL}" name="imageURL" />
-                        </div>
-                        <input type="hidden" name="powerID" th:value="${super.superID}"/>
+                        <input type="hidden" name="powerID" th:value="${org.orgID}"/>
                         <br>
-                        <input class="btn btn-success btn-sm" type="submit" value="ADD SUPER" />
-                        <a class="btn btn-danger btn-sm" href="/supers">CANCEL</a>
+                        <input class="btn btn-success btn-sm" type="submit" value="ADD ORGANIZATION" />
+                        <a class="btn btn-danger btn-sm" href="/orgs">CANCEL</a>
                     </form>                    
                 </div>
+                
             </div>
-                    
-        <div>
-
         </div>
     </body>
     <!-- Optional JavaScript -->

@@ -5,7 +5,9 @@
 package com.sv.supersighter.service;
 
 import com.sv.supersighter.dto.Location;
+import com.sv.supersighter.dto.Org;
 import com.sv.supersighter.dto.Power;
+import com.sv.supersighter.dto.Sighting;
 import com.sv.supersighter.dto.Super;
 import java.util.List;
 import org.springframework.ui.Model;
@@ -33,5 +35,18 @@ public interface SuperServiceLayer {
     Location deleteLocation(int locationID);
     Location getOneLocation(int locationID);
     List<Location> listAllLocations();   
+    
+    Org addOrg(Org org);
+    Org editOrg(Org org);
+    Org deleteOrg(int orgID);
+    Org getOneOrg(int orgID);
+    List<Org> listAllOrgs();   
+    
+    Sighting addSighting(Sighting sighting);
+    Sighting editSighting(Sighting sighting, int superID, int locationID);
+    Sighting deleteSighting(int sightingID);
+    Sighting getOneSighting(int sightingID);
+    List<Sighting> listAllSightings();
+    List<String> listLastTenSightings();
     
 }
