@@ -61,28 +61,50 @@
                                 <td th:text="${sighting.superID}" style="font-weight: bold;">super</td>
                                 <td th:text="${sighting.locationID}">location</td>
                                 <td th:text="${sighting.timeOfSighting}">time</td>
-                                <td><a th:href="@{editSighting(sightingID=${sighting.sightingID})}">edit</a></td>
-                                <td><a href="#" th:href="@{deleteSighting(sightingID=${sighting.sightingID})}">delete</a></td>
+                                <td>edit</td>
+                                <td>delete</td>
+<!--                                <td><a th:href="@{editSighting(sightingID=${sighting.sightingID})}">edit</a></td>
+                                <td><a href="#" th:href="@{deleteSighting(sightingID=${sighting.sightingID})}">delete</a></td>-->
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col">
-                    <form action="addSighting" method="POST" class="mt-5 offset-sm-1">
-                        <h1 class="display-4">Add Sighting</h1>
-                        <div class="form-group">
-                            <label for="super">Super ID</label><br/>
-                            <input type="text" th:value="${sighting.superID}" id="name" name="super" />
+                    <div class="container mt-5">
+                        <form action="addSighting" method="POST">
+                        <div class="row mb-2">
+                            <div class="col-sm-8">
+                                <select id="supersList" name="super" class="form-control">
+                                    <option th:each="super : ${supers}"
+                                            th:value="${super.superID}"
+                                            th:text="${super.name}" />
+                                        Super
+                                </select>
+                            </div>
+                            <div class="col">
+                                <a style="font-size: 10px" role="button" class="btn btn-warning btn-block" href="supers">NEW<BR>SUPER</a>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="location">Location ID</label><br />
-                            <input type="text" th:value="${sighting.locationID}" id="desc" name="location" />
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <select id="supersList" name="location" class="form-control">
+                                <option th:each="location : ${locations}"
+                                        th:value="${location.locationID}"
+                                        th:text="${location.name}" />
+                                    Location
+                                </select>
+                            </div>
+                            <div class="col">
+                                <a style="font-size: 10px" role="button" class="btn btn-warning btn-block" href="locations">NEW<BR>LOCATION</a>
+                            </div>
                         </div>
-                        <input type="hidden" name="sightingID" th:value="${sighting.sightingID}"/>
-                        <br>
-                        <input class="btn btn-success btn-sm" type="submit" value="ADD SIGHTING" />
-                        <a class="btn btn-danger btn-sm" href="/sightings">CANCEL</a>
-                    </form>                    
+                        <div class="row">
+                            <div class="col">
+                                <input class="btn btn-success btn-block mt-3" type="submit" value="ADD SIGHTING" />
+                            </div>
+                        </div>
+                        </form>
+                    </div>
                 </div>
             </div>
                     

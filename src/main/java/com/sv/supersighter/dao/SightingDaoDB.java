@@ -113,7 +113,7 @@ public class SightingDaoDB implements SightingDao {
             result += rs.getString("super.name");
             result += " @ ";
             result += rs.getString("location.name");
-            result += "\n";
+            result += " - ";
             result += rs.getString("sighting.timeOfSighting");
             
             return result;

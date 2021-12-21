@@ -62,8 +62,8 @@
                                 <td th:text="${org.name}">name</td>
                                 <td th:text="${org.description}">description</td>
                                 <td th:text="${org.location}">location</td>
-                                <td><a href="#" th:href="@{editOrg(powerID=${org.orgID})}">edit</a></td>
-                                <td><a href="#" th:href="@{deleteOrg(powerID=${org.orgID})}">delete</a></td>
+                                <td><a href="#" th:href="@{editOrg(orgID=${org.orgID})}">edit</a></td>
+                                <td><a href="#" th:href="@{deleteOrg(orgID=${org.orgID})}">delete</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -83,7 +83,7 @@
                             <label for="address">Location</label><br />
                             <input type="text" th:value="${org.location}" id="desc" name="location" />
                         </div>
-                        <input type="hidden" name="powerID" th:value="${org.orgID}"/>
+                        <input type="hidden" name="orgID" th:value="${org.orgID}"/>
                         <br>
                         <input class="btn btn-success btn-sm" type="submit" value="ADD ORGANIZATION" />
                         <a class="btn btn-danger btn-sm" href="/orgs">CANCEL</a>

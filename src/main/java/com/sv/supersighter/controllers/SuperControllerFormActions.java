@@ -323,8 +323,12 @@ public class SuperControllerFormActions {
     @GetMapping("sightings")
     public String displaySightingsPage(Sighting sighting, Model model) {
         List<Sighting> sightings = service.listAllSightings();
+        List<Super> supers = service.listAllSupers();
+        List<Location> locations = service.listAllLocations();
 
         model.addAttribute("sightings", sightings);
+        model.addAttribute("supers", supers);
+        model.addAttribute("locations", locations);
         return "sightings";
     }
 
@@ -336,10 +340,7 @@ public class SuperControllerFormActions {
         newSighting.setLocationID(Integer.parseInt(request.getParameter("location")));
         newSighting.setTimeOfSighting(LocalDateTime.now());
         
-        System.out.println(newSighting.getSuperID() + " ----- " + newSighting.getLocationID());
-        
         service.addSighting(newSighting);
-        
         
         List<Sighting> sightings = service.listAllSightings();
         model.addAttribute("sightings", sightings);
